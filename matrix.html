@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        .date-wrap {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .date-item {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+
+        .date-item>label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .date-item>input {
+            height: 16px;
+            width: 100px;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 17px;
+        }
+
+        .btn {
+            height: 40px;
+            width: 40px;
+            margin-top: 17px;
+            cursor: pointer;
+        }
+
+        .matrix-wrap {
+            position: relative;
+            width: 375px;
+            margin: 0 auto;
+        }
+
+        .circle-list>div {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            border-radius: 20px;
+            border: solid 1px #000;
+            text-align: center;
+        }
+
+        .circle-list>div>p {
+            margin: 2px;
+        }
+
+        .m5 {
+            margin: 5px !important;
+        }
+        
+        .matrix-img {
+            width: 375px;
+            height: auto;
+        }
+
+        .dateResult {
+            top: 176px;
+            left: 10px;
+            background-color: #b36ab3;
+            color: #fff;
+        }
+
+        .monthResult {
+            top: 11px;
+            left: 172px;
+            background-color: #b36ab3;
+            color: #fff;
+        }
+
+        .yearResult {
+            top: 179px;
+            right: 9px;
+            background-color: #fd8c8c;
+            color: #fff;
+        }
+
+        .allDateResult {
+            left: 173px;
+            bottom: 10px;
+            background-color: #fd8c8c;
+            color: #fff;
+        }
+
+        .centerResult {
+            top: 179px;
+            left: 172px;
+            background-color: #ffec7d;
+        }
+
+        .abResult {
+            top: 57px;
+            left: 53px;
+            background-color: #fff;
+        }
+
+        .bcResult {
+            top: 57px;
+            right: 53px;
+            background-color: #fff;
+        }
+
+        .cdResult {
+            bottom: 59px;
+            right: 53px;
+            background-color: #fff;
+        }
+
+        .daResult {
+            bottom: 59px;
+            left: 53px;
+            background-color: #fff;
+        }
+
+        .dCenterResult {
+            bottom: 65px;
+            left: 177px;
+            background-color: #ffda00;
+            height: 20px !important;
+            width: 20px !important;
+            font-size: 15px !important;
+        }
+
+        .ddCenterResult {
+            bottom: 45px;
+            left: 180px;
+            height: 15px !important;
+            width: 15px !important;
+            background-color: #fff;
+            font-size: 11px !important;
+        }
+
+        .bCenterResult {
+            top: 63px;
+            left: 176px;
+            height: 20px !important;
+            width: 20px !important;
+            background-color: #89f5e4;
+            color: #fff;
+            font-size: 15px !important;
+        }
+
+        .bbCenterResult {
+            top: 44px;
+            left: 179px;
+            height: 15px !important;
+            width: 15px !important;
+            font-size: 9px !important;
+            color: #fff;
+            background-color: #8cacfd;
+        }
+
+        .cCenterResult {
+            right: 56px;
+            bottom: 179px;
+            height: 20px !important;
+            width: 20px !important;
+            font-size: 15px !important;
+            background-color: #ffda00;
+        }
+
+        .cdCenterResult {
+            right: 116px;
+            bottom: 126px;
+            height: 20px !important;
+            width: 20px !important;
+            font-size: 15px !important;
+            background-color: #fff;
+        }
+
+        .relationCenterResult {
+            bottom: 96px;
+            right: 146px;
+            height: 20px !important;
+            width: 20px !important;
+            font-size: 15px !important;
+            background-color: #fff;
+        }
+
+        .financeCenterResult {
+            bottom: 152px;
+            right: 88px;
+            height: 20px !important;
+            width: 20px !important;
+            font-size: 15px !important;
+            background-color: #fff;
+        }
+
+        .ccCenterResult {
+            bottom: 182px;
+            right: 41px;
+            height: 15px !important;
+            width: 15px !important;
+            background-color: #fff;
+            font-size: 11px !important;
+        }
+
+        .aCenterResult {
+            top: 180px;
+            left: 59px;
+            height: 20px !important;
+            width: 20px !important;
+            background-color: #89f5e4;
+            color: #fff;
+            font-size: 15px !important;
+        }
+
+        .aaCenterResult {
+            top: 183px;
+            left: 42px;
+            height: 15px !important;
+            width: 15px !important;
+            font-size: 9px !important;
+            color: #fff;
+            background-color: #8cacfd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="date-wrap">
+            <div class="date-item">
+                <label class="label" id="personDate">Число</label>
+                <input class="personDate" type="text" id="personDate" value="19">
+            </div>
+            <div class="date-item">
+                <label class="label" id="personMounth">Місяць</label>
+                <input class="personMounth" type="text" id="personMounth" value="05">
+            </div>
+            <div class="date-item">
+                <label class="label" id="personYear">Рік</label>
+                <input class="personYear" type="text" id="personYear" value="1992">
+            </div>
+            <div class="date-item">
+                <button class="btn">?</button>
+            </div>
+        </div>
+        <div class="matrix-wrap">
+            <img class="matrix-img" src="./img/matrix.png" alt="">
+            <div class="circle-list">
+                <div class="dateResult"></div>
+                <div class="monthResult"></div>
+                <div class="yearResult"></div>
+                <div class="allDateResult"></div>
+                <div class="centerResult"></div>
+    
+                <div class="abResult"></div>
+                <div class="bcResult"></div>
+                <div class="cdResult"></div>
+                <div class="daResult"></div>
+    
+                <div class="dCenterResult"></div>
+                <div class="ddCenterResult"></div>
+                <div class="bCenterResult"></div>
+                <div class="bbCenterResult"></div>
+    
+                <div class="cCenterResult"></div>
+                <div class="ccCenterResult"></div>
+                <div class="cdCenterResult"></div>
+                <div class="relationCenterResult"></div>
+                <div class="financeCenterResult"></div>
+    
+                <div class="aCenterResult"></div>
+                <div class="aaCenterResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const personDate = document.querySelector('.personDate');
+        const personMounth = document.querySelector('.personMounth');
+        const personYear = document.querySelector('.personYear');
+        const dateResult = document.querySelector('.dateResult');
+
+        const monthResult = document.querySelector('.monthResult');
+        const yearResult = document.querySelector('.yearResult');
+        const allDateResult = document.querySelector('.allDateResult');
+        const centerResult = document.querySelector('.centerResult');
+
+        const abResult = document.querySelector('.abResult');
+        const bcResult = document.querySelector('.bcResult');
+        const cdResult = document.querySelector('.cdResult');
+        const daResult = document.querySelector('.daResult');
+
+        const dCenterResult = document.querySelector('.dCenterResult');
+        const ddCenterResult = document.querySelector('.ddCenterResult');
+        const bCenterResult = document.querySelector('.bCenterResult');
+        const bbCenterResult = document.querySelector('.bbCenterResult');
+
+        const cCenterResult = document.querySelector('.cCenterResult');
+        const ccCenterResult = document.querySelector('.ccCenterResult');
+        const cdCenterResult = document.querySelector('.cdCenterResult');
+        const relationCenterResult = document.querySelector('.relationCenterResult');
+        const financeCenterResult = document.querySelector('.financeCenterResult');
+
+        const aCenterResult = document.querySelector('.aCenterResult');
+        const aaCenterResult = document.querySelector('.aaCenterResult');
+
+        const btn = document.querySelector('.btn');
+        const matrixList = {
+            a: null,
+            b: null,
+            c: null,
+            d: null,
+            center: null,
+            ab: null,
+            bc: null,
+            cd: null,
+            da: null,
+            dCenter: null,
+            ddCenter: null,
+            bCenter: null,
+            bbCenter: null,
+            cCenter: null,
+            cdCenter: null,
+            relation: null,
+            finance: null,
+            ccCenter: null,
+            aCenter: null,
+            aaCenter: null,
+        };
+
+        const getSum = (num) => {
+            return num.split('').reduce(( sum, value ) => {
+                return sum += parseInt(value);
+            }, 0);
+        }
+        
+        const getMatrix = () => {
+            if(personDate.value) {
+                matrixList.a = getSum(personDate.value);
+                if(matrixList.a > 23) {
+                    matrixList.a = getSum(matrixList.a.toString());
+                }
+            }
+
+            if(personMounth.value) {
+                matrixList.b = getSum(personMounth.value);
+                if(matrixList.b > 23) {
+                    matrixList.b = getSum(matrixList.b.toString());
+                }
+            }
+
+            if(personYear.value) {
+                matrixList.c = getSum(personYear.value);
+                if(matrixList.c > 23) {
+                    matrixList.c = getSum(matrixList.c.toString());
+                }
+            }
+
+            const sumAllDate = matrixList.a + matrixList.b + matrixList.c;
+            if(sumAllDate > 23) {
+                matrixList.d = getSum(sumAllDate.toString());
+            } 
+
+            matrixList.center = matrixList.a + matrixList.b + matrixList.c + matrixList.d;
+            if(matrixList.center > 23) {
+                matrixList.center = getSum(matrixList.center.toString());
+            } 
+                  
+            matrixList.ab = matrixList.a + matrixList.b;
+            if(matrixList.ab > 23) {
+                matrixList.ab = getSum(matrixList.ab.toString());
+            }
+
+            matrixList.bc = matrixList.b + matrixList.c;
+            if(matrixList.bc > 23) {
+                matrixList.bc = getSum(matrixList.bc.toString());
+            }
+
+            matrixList.cd = matrixList.c + matrixList.d;
+            if(matrixList.cd > 23) {
+                matrixList.cd = getSum(matrixList.cd.toString());
+            }
+
+            matrixList.da = matrixList.d + matrixList.a;
+            if(matrixList.da > 23) {
+                matrixList.da = getSum(matrixList.da.toString());
+            }
+
+            matrixList.dCenter = matrixList.d + matrixList.center;
+            if(matrixList.dCenter > 23) {
+                matrixList.dCenter = getSum(matrixList.dCenter.toString());
+            }
+
+            matrixList.ddCenter = matrixList.d + matrixList.dCenter;
+            if(matrixList.ddCenter > 23) {
+                matrixList.ddCenter = getSum(matrixList.ddCenter.toString());
+            }
+
+            matrixList.bCenter = matrixList.b + matrixList.center;
+            if(matrixList.bCenter > 23) {
+                matrixList.bCenter = getSum(matrixList.bCenter.toString());
+            }
+
+            matrixList.bbCenter = matrixList.b + matrixList.bCenter;
+            if(matrixList.bbCenter > 23) {
+                matrixList.bbCenter = getSum(matrixList.bbCenter.toString());
+            }
+
+            matrixList.cCenter = matrixList.c + matrixList.center;
+            if(matrixList.cCenter > 23) {
+                matrixList.cCenter = getSum(matrixList.cCenter.toString());
+            }
+
+            matrixList.cdCenter = matrixList.dCenter + matrixList.cCenter;
+            if(matrixList.cdCenter > 23) {
+                matrixList.cdCenter = getSum(matrixList.cdCenter.toString());
+            }
+
+            matrixList.relation = matrixList.dCenter + matrixList.cdCenter;
+            if(matrixList.relation > 23) {
+                matrixList.relation = getSum(matrixList.relation.toString());
+            }
+
+            matrixList.finance = matrixList.cCenter + matrixList.cdCenter;
+            if(matrixList.finance > 23) {
+                matrixList.finance = getSum(matrixList.finance.toString());
+            }
+
+            matrixList.ccCenter = matrixList.cCenter + matrixList.c;
+            if(matrixList.ccCenter > 23) {
+                matrixList.ccCenter = getSum(matrixList.ccCenter.toString());
+            }
+
+            matrixList.aCenter = matrixList.a + matrixList.center;
+            if(matrixList.aCenter > 23) {
+                matrixList.aCenter = getSum(matrixList.aCenter.toString());
+            }
+
+            matrixList.aaCenter = matrixList.a + matrixList.aCenter;
+            if(matrixList.aaCenter > 23) {
+                matrixList.aaCenter = getSum(matrixList.aaCenter.toString());
+            }
+
+            
+            renderMatrix();
+        }
+
+        const renderMatrix = () => {
+            dateResult.innerHTML = `<p class="m5">${matrixList.a}</p>`;
+            monthResult.innerHTML = `<p class="m5">${matrixList.b}</p>`;
+            yearResult.innerHTML = `<p class="m5">${matrixList.c}</p>`;
+            allDateResult.innerHTML = `<p class="m5">${matrixList.d}</p>`;
+            centerResult.innerHTML = `<p class="m5">${matrixList.center}</p>`;
+            abResult.innerHTML = `<p class="m5">${matrixList.ab}</p>`;
+            bcResult.innerHTML = `<p class="m5">${matrixList.bc}</p>`;
+            cdResult.innerHTML = `<p class="m5">${matrixList.cd}</p>`;
+            daResult.innerHTML = `<p class="m5">${matrixList.da}</p>`;
+            dCenterResult.innerHTML = `<p>${matrixList.dCenter}</p>`;
+            ddCenterResult.innerHTML = `<p>${matrixList.ddCenter}</p>`;
+            bCenterResult.innerHTML = `<p>${matrixList.bCenter}</p>`;
+            bbCenterResult.innerHTML = `<p>${matrixList.bbCenter}</p>`;
+            cCenterResult.innerHTML = `<p>${matrixList.cCenter}</p>`;
+            cdCenterResult.innerHTML = `<p>${matrixList.cdCenter}</p>`;
+            relationCenterResult.innerHTML = `<p>${matrixList.relation}</p>`;
+            financeCenterResult.innerHTML = `<p>${matrixList.finance}</p>`;
+            ccCenterResult.innerHTML = `<p>${matrixList.ccCenter}</p>`;
+            aCenterResult.innerHTML = `<p>${matrixList.aCenter}</p>`;
+            aaCenterResult.innerHTML = `<p>${matrixList.aaCenter}</p>`;
+        }
+
+        const init = () => {
+            btn.addEventListener('click', getMatrix);
+        }
+
+        window.onload = init();
+
+    </script>
+</body>
+</html>
